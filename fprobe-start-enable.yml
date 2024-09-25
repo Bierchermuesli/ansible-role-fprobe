@@ -1,0 +1,13 @@
+#Standalone to enable fprobe
+
+---
+- hosts: all
+  become: yes
+  tasks:
+
+- name: Ensure service is enabled and started
+  ansible.builtin.service:
+    name: "fprobe"
+    state: "started"
+    enabled: "yes"
+    daemon_reload: yes

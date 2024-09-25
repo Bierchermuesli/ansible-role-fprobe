@@ -1,0 +1,10 @@
+#Standalone Playbook Example
+---
+- hosts: all
+  become: yes
+  vars: 
+    fprobe_flow_collector: '100.64.64.64:9996'
+    fprobe_filter: "(udp && port 162) or icmp"
+    fprobe_if: eth0
+  roles:
+  - fprobe

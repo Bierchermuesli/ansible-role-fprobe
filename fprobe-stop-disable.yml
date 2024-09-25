@@ -1,0 +1,13 @@
+#Standalone to disable fprobe
+
+---
+- hosts: all
+  become: yes
+  tasks:
+
+- name: Ensure service is stoppend and disabled
+  ansible.builtin.service:
+    name: "fprobe"
+    state: "stopped"
+    enabled: "no"
+    daemon_reload: yes

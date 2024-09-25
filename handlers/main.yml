@@ -1,0 +1,5 @@
+---
+- name: Restart fprobe
+  ansible.builtin.service:
+    name: fprobe
+    state: restarted

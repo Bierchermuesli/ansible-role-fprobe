@@ -1,0 +1,31 @@
+---
+- name: Install fprobe from packages
+  ansible.builtin.package:
+    name: fprobe
+    state: present
+
+- name: Disable /etc/default/fprobe
+  ansible.builtin.replace:
+    dest: /etc/default/fprobe
+    regexp: ^(?!#)(.*)
+    replace: "#\\1"
+  notify:
+    - Restart fprobe
+
+- name: Create fprobe init script
+  ansible.builtin.template:
+    src: fprobe-init.d.j2
+    dest: /etc/init.d/fprobe
+  notify:
+    - restart fprobe
+  failed_when:
+    - fprobe_if not in ansible_facts.interfaces
+  tags:
+    - config
+
+- name: Ensure service is enabled and started
+  ansible.builtin.service:
+    name: fprobe
+    state: started
+    enabled: "yes"
+    daemon_reload: true

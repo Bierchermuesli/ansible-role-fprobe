@@ -1,0 +1,6 @@
+---
+# https://manpages.ubuntu.com/manpages/focal/en/man8/fprobe.8.html
+fprobe_if: "{{ ansible_default_ipv4.interface }}" # find default interface or set eth0 whatever
+fprobe_flow_collector: 127.0.0.1:9996 # the netflow reciever
+fprobe_filter: ip # please use a filter. atleast 'ip'  See tcpdup syntax
+fprobe_args: "" # any other args
